@@ -92,7 +92,7 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
       <CardContent>
         <div className='grid gap-6 lg:grid-cols-5'>
           <div className='flex flex-col justify-between gap-7 lg:col-span-3'>
-            <span className='text-lg font-semibold'>Sales metrics</span>
+            <span className='text-base font-semibold'>Sales metrics</span>
             <div className='flex items-center gap-3'>
               <img
                 src='https://cdn.shadcnstudio.com/ss-assets/logo/logo-square.png'
@@ -100,8 +100,8 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
                 alt='logo'
               />
               <div className='flex flex-col gap-0.5'>
-                <span className='text-xl font-medium'>Sandy&apos; Company</span>
-                <span className='text-muted-foreground text-sm'>sandy@company.com</span>
+                <span className='text-base font-medium'>Sandy&apos; Company</span>
+                <span className='text-muted-foreground text-xs'>sandy@company.com</span>
               </div>
             </div>
 
@@ -115,8 +115,8 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
                       </AvatarFallback>
                     </Avatar>
                     <div className='flex flex-col gap-0.5'>
-                      <span className='text-muted-foreground text-sm font-medium'>{metric.title}</span>
-                      <span className='text-lg font-medium'>{metric.value}</span>
+                      <span className='text-muted-foreground text-xs font-medium'>{metric.title}</span>
+                      <span className='text-base font-medium'>{metric.value}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -125,7 +125,7 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
           </div>
           <Card className='ring-foreground/10 justify-between gap-4 shadow-none ring-1 lg:col-span-2'>
             <CardHeader className='gap-1'>
-              <CardTitle className='text-lg font-semibold'>Revenue goal</CardTitle>
+              <CardTitle className='text-base font-semibold'>Revenue goal</CardTitle>
             </CardHeader>
 
             <CardContent className='space-y-4'>
@@ -150,7 +150,7 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
                               <tspan
                                 x={viewBox.cx}
                                 y={(viewBox.cy || 0) - 12}
-                                className='fill-card-foreground text-lg font-medium'
+                                className='fill-card-foreground text-base font-medium'
                               >
                                 256.24
                               </tspan>
@@ -170,8 +170,8 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
                 </PieChart>
               </ChartContainer>
               <div className='flex items-center justify-between'>
-                <span className='text-xl'>Plan completed</span>
-                <span className='text-2xl font-medium'>56%</span>
+                <span className='text-base'>Plan completed</span>
+                <span className='text-xl font-medium'>56%</span>
               </div>
             </CardContent>
           </Card>
@@ -181,11 +181,11 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
         <Card className='ring-foreground/10 shadow-none ring-1'>
           <CardContent className='grid gap-4 lg:grid-cols-5'>
             <div className='flex flex-col justify-center gap-6'>
-              <span className='text-lg font-semibold'>Sales plan</span>
-              <span className='max-lg:5xl text-6xl'>{salesPlanPercentage}%</span>
-              <span className='text-muted-foreground text-sm'>Percentage profit from total sales</span>
+              <span className='text-base font-semibold'>Sales plan</span>
+              <span className='max-lg:text-4xl text-5xl'>{salesPlanPercentage}%</span>
+              <span className='text-muted-foreground text-xs'>Percentage profit from total sales</span>
             </div>
-            <div className='flex flex-col gap-6 text-lg md:col-span-4'>
+            <div className='flex flex-col gap-6 text-sm md:col-span-4'>
               <span className='font-medium'>Cohort analysis indicators</span>
               <span className='text-muted-foreground text-wrap'>
                 Analyzes the behaviour of a group of users who joined a product/service at the same time. over a certain
@@ -193,12 +193,12 @@ const SalesMetricsCard = ({ className }: { className?: string }) => {
               </span>
               <div className='grid gap-6 md:grid-cols-2'>
                 <div className='flex items-center gap-2'>
-                  <ChartNoAxesCombinedIcon className='size-6' />
-                  <span className='text-lg font-medium'>Open Statistics</span>
+                  <ChartNoAxesCombinedIcon className='size-5' />
+                  <span className='text-sm font-medium'>Open Statistics</span>
                 </div>
                 <div className='flex items-center gap-2'>
-                  <CirclePercentIcon className='size-6' />
-                  <span className='text-lg font-medium'>Percentage Change</span>
+                  <CirclePercentIcon className='size-5' />
+                  <span className='text-sm font-medium'>Percentage Change</span>
                 </div>
               </div>
 

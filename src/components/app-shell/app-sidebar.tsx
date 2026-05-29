@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronRightIcon } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
@@ -30,6 +31,15 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 }
 
 export function AppSidebar({ config, header, footer, isActive, collapsible = 'icon', ...props }: AppSidebarProps) {
+  const pathname = usePathname()
+  const matchActive =
+    isActive ??
+    ((url: string) => {
+      if (!url || url === '#') return false
+      if (url === '/') return pathname === '/'
+      return pathname === url || pathname.startsWith(`${url}/`)
+    })
+
   return (
     <Sidebar collapsible={collapsible} {...props}>
       {header ? <SidebarHeader>{header}</SidebarHeader> : null}
@@ -40,7 +50,7 @@ export function AppSidebar({ config, header, footer, isActive, collapsible = 'ic
             <SidebarGroupContent>
               <SidebarMenu>
                 {group.items.map((item) => (
-                  <NavMenuItem key={item.title} item={item} isActive={isActive} />
+                  <NavMenuItem key={item.title} item={item} isActive={matchActive} />
                 ))}
               </SidebarMenu>
             </SidebarGroupContent>
@@ -52,11 +62,11 @@ export function AppSidebar({ config, header, footer, isActive, collapsible = 'ic
   )
 }
 
-function NavMenuItem({ item, isActive }: { item: NavItem; isActive?: (url: string) => boolean }) {
+function NavMenuItem({ item, isActive }: { item: NavItem; isActive: (url: string) => boolean }) {
   const hasChildren = item.items && item.items.length > 0
 
   if (hasChildren) {
-    const defaultOpen = item.items?.some((sub) => isActive?.(sub.url)) ?? false
+    const defaultOpen = item.items?.some((sub) => isActive(sub.url)) ?? false
 
     return (
       <Collapsible asChild defaultOpen={defaultOpen} className='group/collapsible'>
@@ -74,7 +84,7 @@ function NavMenuItem({ item, isActive }: { item: NavItem; isActive?: (url: strin
                 <SidebarMenuSubItem key={sub.title}>
                   <SidebarMenuSubButton
                     asChild
-                    isActive={isActive?.(sub.url)}
+                    isActive={isActive(sub.url)}
                     aria-disabled={sub.disabled || undefined}
                   >
                     <a
@@ -102,7 +112,7 @@ function NavMenuItem({ item, isActive }: { item: NavItem; isActive?: (url: strin
       <SidebarMenuButton
         asChild
         tooltip={item.title}
-        isActive={isActive?.(item.url)}
+        isActive={isActive(item.url)}
         aria-disabled={item.disabled || undefined}
       >
         <a

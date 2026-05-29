@@ -142,7 +142,8 @@
   [data-slot="menubar-item"]:not([data-disabled]),
   [data-slot="command-item"]:not([data-disabled]),
   [data-slot="sidebar-menu-button"]:not(:disabled),
-  [data-slot="sidebar-menu-sub-button"]:not(:disabled) {
+  [data-slot="sidebar-menu-sub-button"]:not(:disabled),
+  [data-slot="pagination-link"]:not([aria-disabled="true"]) {
     cursor: pointer;
   }
 }

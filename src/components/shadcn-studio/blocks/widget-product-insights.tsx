@@ -41,8 +41,8 @@ const ProductInsightsCard = ({ className }: { className?: string }) => {
     <Card className={className}>
       <CardHeader className='flex justify-between'>
         <div className='flex flex-col gap-1'>
-          <span className='text-lg font-semibold'>Product insight</span>
-          <span className='text-muted-foreground text-sm'>Published on 12 MAY 2025 - 6:10 PM</span>
+          <span className='text-base font-semibold'>Product insight</span>
+          <span className='text-muted-foreground text-xs'>Published on 12 MAY 2025 - 6:10 PM</span>
         </div>
         <img
           src='https://cdn.shadcnstudio.com/ss-assets/blocks/dashboard-application/widgets/image-7.png'
@@ -57,7 +57,7 @@ const ProductInsightsCard = ({ className }: { className?: string }) => {
         <div className='flex items-center justify-between gap-1'>
           <div className='flex flex-col gap-1'>
             <span className='text-xs'>Product reached</span>
-            <span className='text-2xl font-semibold'>21,153</span>
+            <span className='text-xl font-semibold'>21,153</span>
           </div>
           <ChartContainer config={productReachChartConfig} className='min-h-13 max-w-18'>
             <BarChart accessibilityLayer data={productReachChartData} barSize={8}>
@@ -69,7 +69,7 @@ const ProductInsightsCard = ({ className }: { className?: string }) => {
         <div className='flex items-center justify-between gap-1'>
           <div className='flex flex-col gap-1'>
             <span className='text-xs'>Order placed </span>
-            <span className='text-2xl font-semibold'>2,123</span>
+            <span className='text-xl font-semibold'>2,123</span>
           </div>
           <ChartContainer config={orderPlacedChartConfig} className='min-h-13 max-w-18'>
             <BarChart accessibilityLayer data={orderPlacedChartData} barSize={8}>

@@ -34,7 +34,7 @@ const TotalEarningCard = ({ earningData, title, earning, trend, percentage, comp
     <Card className={className}>
       <CardContent className='flex flex-col gap-6'>
         <span className='flex items-center justify-between'>
-          <div className='text-lg font-semibold'>{title}</div>
+          <div className='text-base font-semibold'>{title}</div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='ghost' size='icon' className='text-muted-foreground size-6 rounded-full'>
@@ -53,7 +53,7 @@ const TotalEarningCard = ({ earningData, title, earning, trend, percentage, comp
         </span>
         <div className='flex flex-col gap-1'>
           <div className='flex items-center gap-2'>
-            <span className='text-2xl font-semibold'>${earning}</span>
+            <span className='text-xl font-semibold'>${earning}</span>
             <span className='flex items-center gap-1'>
               {trend === 'up' ? (
                 <ChevronUpIcon className='size-4' />
@@ -77,8 +77,8 @@ const TotalEarningCard = ({ earningData, title, earning, trend, percentage, comp
                   </AvatarFallback>
                 </Avatar>
                 <div className='flex flex-col gap-1'>
-                  <span className='text-base font-medium'>{earning.platform}</span>
-                  <span className='text-muted-foreground text-sm'>{earning.technologies}</span>
+                  <span className='text-sm font-medium'>{earning.platform}</span>
+                  <span className='text-muted-foreground text-xs'>{earning.technologies}</span>
                 </div>
               </div>
               <div className='space-y-2'>

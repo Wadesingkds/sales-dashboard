@@ -1,4 +1,17 @@
-import { AppWindowIcon, BoxIcon, ChartNoAxesCombinedIcon, NavigationIcon, PanelLeftIcon, ShapesIcon, TypeIcon } from 'lucide-react'
+import {
+  AlertTriangleIcon,
+  AppWindowIcon,
+  BoxIcon,
+  ChartNoAxesCombinedIcon,
+  ChartPieIcon,
+  LockIcon,
+  NavigationIcon,
+  PanelLeftIcon,
+  SettingsIcon,
+  ShapesIcon,
+  TableIcon,
+  TypeIcon
+} from 'lucide-react'
 
 import type { NavConfig } from '@/components/app-shell'
 
@@ -11,6 +24,32 @@ export const dashboardNav: NavConfig = {
           url: '/dashboard-shell-01',
           icon: ChartNoAxesCombinedIcon
         }
+      ]
+    },
+    {
+      label: 'Pages',
+      items: [
+        {
+          title: 'Authentication',
+          url: '#',
+          icon: LockIcon,
+          items: [
+            { title: 'Login', url: '/auth/login' },
+            { title: 'Register', url: '/auth/register' },
+            { title: 'Forgot Password', url: '/auth/forgot-password' }
+          ]
+        },
+        {
+          title: 'Errors',
+          url: '#',
+          icon: AlertTriangleIcon,
+          items: [
+            { title: '404 Not Found', url: '/pages/404' },
+            { title: '500 Server Error', url: '/pages/500' }
+          ]
+        },
+        { title: 'Settings', url: '/pages/settings', icon: SettingsIcon },
+        { title: 'Data Table', url: '/pages/datatable', icon: TableIcon }
       ]
     },
     {
@@ -101,6 +140,7 @@ export const dashboardNav: NavConfig = {
     {
       label: 'Resources',
       items: [
+        { title: 'Charts', url: '/charts', icon: ChartPieIcon },
         { title: 'Icons', url: '/icons', icon: ShapesIcon }
       ]
     }

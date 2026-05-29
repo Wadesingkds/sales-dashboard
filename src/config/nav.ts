@@ -4,6 +4,7 @@ import {
   AppWindowIcon,
   BoxIcon,
   CalendarIcon,
+  ShoppingCartIcon,
   ChartNoAxesCombinedIcon,
   ChartPieIcon,
   ClipboardListIcon,
@@ -53,6 +54,22 @@ export const dashboardNav: NavConfig = {
       ]
     },
     {
+      label: 'E-Commerce',
+      items: [
+        {
+          title: 'E-Commerce',
+          url: '#',
+          icon: ShoppingCartIcon,
+          items: [
+            { title: 'Dashboard', url: '/pages/ecommerce/dashboard' },
+            { title: 'Products', url: '/pages/ecommerce/products' },
+            { title: 'Orders', url: '/pages/ecommerce/orders' },
+            { title: 'Customers', url: '/pages/ecommerce/customers' }
+          ]
+        }
+      ]
+    },
+    {
       label: 'Pages',
       items: [
         {
@@ -62,7 +79,11 @@ export const dashboardNav: NavConfig = {
           items: [
             { title: 'Login', url: '/auth/login' },
             { title: 'Register', url: '/auth/register' },
-            { title: 'Forgot Password', url: '/auth/forgot-password' }
+            { title: 'Forgot Password', url: '/auth/forgot-password' },
+            { title: 'Reset Password', url: '/auth/reset-password' },
+            { title: 'OTP Verification', url: '/auth/otp-verification' },
+            { title: 'Lock Screen', url: '/auth/lock-screen' },
+            { title: 'Verify Email', url: '/auth/verify-email' }
           ]
         },
         {

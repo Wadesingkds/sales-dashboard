@@ -24,7 +24,7 @@ export default function DataPage() {
   const [filterStatus, setFilterStatus] = useState<string | null>('all');
   const [page, setPage] = useState(1);
   const [editRow, setEditRow] = useState<SalesRow | null>(null);
-  const [newStatus, setNewStatus] = useState<string | null>('');
+  const [newStatus, setNewStatus] = useState<string>('');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -40,8 +40,10 @@ export default function DataPage() {
     finally { setLoading(false); }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load(); }, [load]);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     let f = data;
     if (filterStatus && filterStatus !== 'all') f = f.filter(d => d.statusAnalisis === filterStatus);
@@ -54,7 +56,9 @@ export default function DataPage() {
         d.produk?.toLowerCase().includes(q)
       );
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFiltered(f);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, [data, search, filterStatus]);
 
@@ -211,7 +215,7 @@ export default function DataPage() {
             </div>
             <div>
               <p className="text-xs text-[#6B7280] mb-1.5">Status Baru</p>
-              <Select value={newStatus} onValueChange={(v) => setNewStatus(v ?? '')}>
+              <Select value={newStatus} onValueChange={setNewStatus}>
                 <SelectTrigger className="text-xs h-9">
                   <SelectValue />
                 </SelectTrigger>

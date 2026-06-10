@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Moccilabs",
-    template: "%s · Moccilabs",
+    default: "Sales Dashboard",
+    template: "%s · Sales Dashboard",
   },
   description:
     "A modern admin dashboard template built with Next.js, React, Tailwind CSS, and shadcn-style components.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
   appleWebApp: {
-    title: "Moccilabs",
+    title: "Sales Dashboard",
   },
 };
 

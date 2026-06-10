@@ -1,116 +1,208 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { Loader2Icon } from 'lucide-react'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import { useState, FormEvent } from 'react'
+import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-
-const loginSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Enter a valid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  remember: z.boolean().optional()
-})
-
-type LoginValues = z.infer<typeof loginSchema>
+const ORANGE  = '#F15A22'
+const SLATE   = '#494E5C'
+const TEAL    = '#006885'
+const BG      = '#F8F9FB'
+const BORDER  = '#E5E7EB'
+const TEXT    = '#1A1C23'
+const MUTED   = '#6B7280'
 
 export default function LoginPage() {
-  const [submitting, setSubmitting] = useState(false)
-  const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '', remember: false }
-  })
+  const router = useRouter()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const onSubmit = async (values: LoginValues) => {
-    setSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 800))
-    setSubmitting(false)
-    toast.success('Welcome back', { description: values.email })
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      })
+
+      const data = await res.json()
+
+      if (res.ok && data.success) {
+        router.push('/dashboard')
+        router.refresh()
+      } else {
+        setError(data.message || 'Username atau password salah.')
+      }
+    } catch {
+      setError('Terjadi kesalahan. Silakan coba lagi.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <Card>
-      <CardHeader className='space-y-1 text-center'>
-        <CardTitle className='text-xl'>Welcome back</CardTitle>
-        <CardDescription>Sign in to your account to continue</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form className='space-y-4' onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type='email' placeholder='you@example.com' autoComplete='email' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: BG,
+      padding: '0 16px'
+    }}>
+      <div style={{
+        width: '100%',
+        maxWidth: 420,
+        background: '#fff',
+        borderRadius: 16,
+        border: `1px solid ${BORDER}`,
+        padding: '48px 40px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
+      }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: 32, textAlign: 'center' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 8
+          }}>
+            <div style={{ width: 4, height: 28, borderRadius: 2, background: ORANGE }} />
+            <h1 style={{ fontSize: 24, fontWeight: 700, color: TEXT, margin: 0 }}>Monitoring Pembiayaan</h1>
+          </div>
+          <p style={{ fontSize: 13, color: MUTED, margin: 0 }}>Data pipeline debitur · Google Sheets</p>
+        </div>
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {/* Username */}
+          <div>
+            <label
+              htmlFor="username"
+              style={{
+                display: 'block',
+                fontSize: 12,
+                fontWeight: 600,
+                color: SLATE,
+                marginBottom: 6,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em'
+              }}
+            >
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              autoComplete="username"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 14px',
+                fontSize: 14,
+                color: TEXT,
+                background: '#fff',
+                border: `1px solid ${BORDER}`,
+                borderRadius: 8,
+                outline: 'none',
+                transition: 'all 0.15s',
+              }}
+              placeholder="admin"
+              onFocus={(e) => (e.target.style.borderColor = TEAL)}
+              onBlur={(e) => (e.target.style.borderColor = BORDER)}
             />
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <div className='flex items-center justify-between'>
-                    <FormLabel>Password</FormLabel>
-                    <Link
-                      href='/auth/forgot-password'
-                      className='text-muted-foreground hover:text-foreground text-xs'
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                  <FormControl>
-                    <Input type='password' placeholder='••••••••' autoComplete='current-password' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              style={{
+                display: 'block',
+                fontSize: 12,
+                fontWeight: 600,
+                color: SLATE,
+                marginBottom: 6,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em'
+              }}
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '12px 14px',
+                fontSize: 14,
+                color: TEXT,
+                background: '#fff',
+                border: `1px solid ${BORDER}`,
+                borderRadius: 8,
+                outline: 'none',
+                transition: 'all 0.15s',
+              }}
+              placeholder="••••••••"
+              onFocus={(e) => (e.target.style.borderColor = TEAL)}
+              onBlur={(e) => (e.target.style.borderColor = BORDER)}
             />
-            <FormField
-              control={form.control}
-              name='remember'
-              render={({ field }) => (
-                <FormItem className='flex flex-row items-center gap-2 space-y-0'>
-                  <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                  </FormControl>
-                  <FormLabel className='text-xs font-normal'>Remember me for 30 days</FormLabel>
-                </FormItem>
-              )}
-            />
-            <Button type='submit' className='w-full' disabled={submitting}>
-              {submitting ? <Loader2Icon className='animate-spin' /> : null}
-              Sign in
-            </Button>
-            <p className='text-muted-foreground text-center text-sm'>
-              Don&apos;t have an account?{' '}
-              <Link href='/auth/register' className='text-foreground hover:underline'>
-                Sign up
-              </Link>
-            </p>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+          </div>
+
+          {/* Error */}
+          {error && (
+            <div style={{
+              padding: '10px 14px',
+              fontSize: 12,
+              color: '#991B1B',
+              background: '#FEF2F2',
+              border: '1px solid #FECACA',
+              borderRadius: 8
+            }}>
+              {error}
+            </div>
+          )}
+
+          {/* Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '12px 0',
+              fontSize: 14,
+              fontWeight: 600,
+              color: '#fff',
+              background: loading ? '#9CA3AF' : ORANGE,
+              border: 'none',
+              borderRadius: 8,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'all 0.15s',
+              boxShadow: loading ? 'none' : '0 1px 3px rgba(0,0,0,0.1)'
+            }}
+            onMouseEnter={(e) => !loading && (e.currentTarget.style.background = '#D94E1A')}
+            onMouseLeave={(e) => !loading && (e.currentTarget.style.background = ORANGE)}
+          >
+            {loading ? 'Memproses...' : 'Masuk'}
+          </button>
+        </form>
+
+        {/* Footer */}
+        <div style={{ marginTop: 24, textAlign: 'center' }}>
+          <p style={{ fontSize: 11, color: MUTED, margin: 0 }}>© {new Date().getFullYear()} Sales Dashboard</p>
+        </div>
+
+      </div>
+    </div>
   )
 }

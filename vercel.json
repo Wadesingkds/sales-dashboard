@@ -1,0 +1,3 @@
+{
+  "buildCommand": "npm ci --registry=https://registry.npmjs.org && npm run build"
+}

@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[context.production.environment]
+  APP_USERNAME = "admin"
+  APP_PASSWORD = "Sukun123*"
+  NEXT_PUBLIC_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzv8U1zEJhNYrpAx4D1cmKh_0vgdtG-1HmNVPXgJUIEb43QLumEk1N8zR5zVdDVD6LmXA/exec"

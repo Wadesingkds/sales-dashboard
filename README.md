@@ -1,5 +1,4 @@
-# Mocci Admin Template
-
+# Sales
 A modern admin dashboard template built with Next.js 16, React 19, Tailwind CSS v4, and shadcn-style components.
 
 ## Getting Started
